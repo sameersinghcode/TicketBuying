@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "ticketbuying_backend": {
+      "candid": "src/ticketbuying_backend/ticketbuying_backend.did",
+      "package": "ticketbuying_backend",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

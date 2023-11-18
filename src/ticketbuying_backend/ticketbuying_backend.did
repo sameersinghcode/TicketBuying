@@ -1,0 +1,70 @@
+type Event = record {
+    id : text;
+    name : text;
+    date : text;
+    location : text;
+    max_seats : nat32;
+    nft_id : opt text;
+};
+
+type Ticket = record {
+    id : text;
+    seat_number : text;
+    event_id : text;
+    owner : principal;
+};
+
+type NFTMetadata = record {
+    token_id : text;
+    owner : principal;
+    metadata : DIP721Metadata;
+};
+
+type DIP721Metadata = record {
+    name : text;
+    description : text;
+    image : text;
+    attributes : vec Attribute;
+};
+
+type Attribute = record {
+    trait_type : text;
+    value : text;
+};
+
+type Metadata = record {
+    name : text;
+    description : text;
+    image : text;
+    attributes : vec Attribute;
+};
+
+service : {
+    create_event : (
+        name : text,
+        date : text,
+        location : text,
+        num_seats : nat32,
+        id : text,
+    ) -> (variant { Ok : Event; Err : text });
+
+    mint_ticket : (
+        event_id : text,
+        seat_number : nat32,
+        owner : principal,
+    ) -> (variant { Ok : Ticket; Err : text });
+
+    transfer_ticket : (
+        ticket_id : text,
+        new_owner : principal,
+        owner : principal,
+    ) -> (variant { Ok : null; Err : text });
+
+    check_ticket_owner : (
+        ticket_id : text
+    ) -> (opt principal);
+
+    get_event : (
+        event_id : text
+    ) -> (opt Event);
+};
